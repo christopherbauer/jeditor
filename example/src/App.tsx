@@ -1,10 +1,8 @@
 import React from 'react'
-
-import { ExampleComponent } from 'jeditor'
-import 'jeditor/dist/index.css'
+import { JEditor } from 'jeditor'
 
 const App = () => {
-  return <ExampleComponent text="Create React Library Example 😄" />
+  return <JEditor json={{ "test": 1 }} />
 }
 
 export default App
