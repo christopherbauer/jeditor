@@ -1,7 +1,7 @@
-import { ExampleComponent } from '.'
+import { JEditor } from '.'
 
-describe('ExampleComponent', () => {
+describe('JEditor', () => {
   it('is truthy', () => {
-    expect(ExampleComponent).toBeTruthy()
+    expect(JEditor).toBeTruthy()
   })
 })

@@ -29,8 +29,6 @@
     "react/jsx-handler-names": 0,
     "react/jsx-fragments": 0,
     "react/no-unused-prop-types": 0,
-    "no-unused-vars": "off",
-    "import/export": 0,
-    "one-var": "off"
+    "import/export": 0
   }
 }

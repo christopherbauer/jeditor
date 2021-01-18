@@ -1,7 +1,7 @@
 {
   "name": "jeditor",
   "version": "1.0.0",
-  "description": "Made with create-react-library",
+  "description": "JSON Editor for React",
   "author": "christopherbauer",
   "license": "MIT",
   "repository": "christopherbauer/jeditor",
@@ -55,10 +55,12 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "^3.4.1",
-    "typescript": "^3.7.5",
-    "react-jss": "^10.5.0"
+    "typescript": "^3.7.5"
   },
   "files": [
     "dist"
-  ]
+  ],
+  "dependencies": {
+    "react-jss": "^10.5.0"
+  }
 }
