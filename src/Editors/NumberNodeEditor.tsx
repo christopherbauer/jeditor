@@ -15,11 +15,11 @@ export const NumberNodeEditor = (props: {
 	}, [props.isEditing]);
 
 	const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
-		props.onDataChange(event.currentTarget.value);
+		props.onDataChange(parseInt(event.currentTarget.value));
 	};
 	const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if(event.key === "Enter") {
-            props.onDataChange(event.currentTarget.value);
+            props.onDataChange(parseInt(event.currentTarget.value));
         }
     };
 

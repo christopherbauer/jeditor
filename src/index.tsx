@@ -32,6 +32,7 @@ const DisplayEditor = (props: {
 	className?: string;
 	onJsonUpdated: (json: IDictionary<any>) => void;
 }) => {
+	const classes = useStyles();
 	const { path, json, type } = props;
 	const [isEditing, setEditing] = useState<boolean>(false);
 	const kvp = getDisplayKVP(props.json, path);
@@ -85,7 +86,7 @@ const DisplayEditor = (props: {
 		);
 	} else {
 		return (
-			<div onClick={canEdit ? handleDivClick : undefined} className={props.className}>
+			<div className={classes.editorNode} onClick={canEdit ? handleDivClick : undefined}>
 				{props.children}
 			</div>
 		);
@@ -99,14 +100,25 @@ const useStyles = createUseStyles({
 		padding: ['1em'],
 		width: '50%',
 		borderRadius: 10,
-		'& div': {
-			margin: [5, 20, 0, 20],
-			border: [1, 'solid', '#404040'],
-			borderRadius: 5,
-			padding: [5, 0, 5, 5],
-			backgroundColor: '#1d1d1d',
-		},
-	},
+        '& pre': {
+            position: 'relative',
+            border: [1, 'solid', '#404040'],
+            color: '#9CDCFE'
+        }
+    },
+    editorNode: {
+        margin: [5, 20, 0, 20],
+        border: [1, 'solid', '#404040'],
+        borderRadius: 5,
+        padding: [5, 0, 5, 5],
+        backgroundColor: '#1d1d1d',
+    },
+    editorMenu: {
+        position: 'absolute',
+        top: 0,
+        right: 0,
+        padding: 5
+    },
 	jsonArray: {},
 	jsonEditorKey: {
 		color: '#9CDCFE',
@@ -136,7 +148,8 @@ export const JEditor = ({ json }: Props) => {
 	let jsonEditorRef = useRef<HTMLDivElement>(null);
 	const classes = useStyles();
 	const [curJson, setCurJson] = useState<any>(json);
-	const [editing, setEditing] = useState(false);
+    const [editing, setEditing] = useState(false);
+    const [showContainerEditor, setShowContainerEditor] = useState(false);
 	const keyFormat = (key: string) => <span className={classes.jsonEditorKey}>{key}</span>;
 
 	const handleDocumentClick = (event: MouseEvent) => {
@@ -144,7 +157,13 @@ export const JEditor = ({ json }: Props) => {
 			setEditing(false);
 			document.removeEventListener('mousedown', handleDocumentClick);
 		}
-	};
+    };
+    const handleShowEditorMenu = () => {
+        setShowContainerEditor(true);
+    }
+    const handleHideEditorMenu = () => {
+        setShowContainerEditor(false);
+    }
 
 	useEffect(() => {
 		if (editing) {
@@ -183,7 +202,7 @@ export const JEditor = ({ json }: Props) => {
 						type={EditorTypes.array}
 						onJsonUpdated={(newJson) => setCurJson(newJson)}
 					>
-						&#91;-&#93; {keyFormat(key)}: [ {arrNodeArray} ]
+						{keyFormat(key)}: [ {arrNodeArray} ]
 					</DisplayEditor>
 				);
 			} else {
@@ -255,10 +274,19 @@ export const JEditor = ({ json }: Props) => {
 			{curJson && editing ? (
 				formatJSON(curJson, [])
 			) : (
-				<pre className={classes.jsonEditorEditInit} onClick={() => setEditing(true)}>
+				<pre onMouseEnter={handleShowEditorMenu} onMouseLeave={handleHideEditorMenu} className={classes.jsonEditorEditInit} onClick={() => setEditing(true)}>
+                    { showContainerEditor && <EditorMenu /> }
 					{JSON.stringify(curJson, null, 4)}
 				</pre>
 			)}
 		</div>
 	);
 };
+
+interface IEditorMenuProps {
+
+}
+const EditorMenu: React.FC<IEditorMenuProps> = () => {
+	const classes = useStyles();
+    return <div className={classes.editorMenu}><button>Edit</button></div>;
+}

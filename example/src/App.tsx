@@ -24,9 +24,12 @@ const App = () => {
 	};
 	return (
 		<div>
-            <div><h2>JEditor</h2></div>
 			<div>
-				<JEditor json={exampleJson} onJsonUpdated={handleJsonUpdated} />;
+				<h2>JEditor</h2>
+                <em>Hi, I'm JEditor! Click on the JSON below to edit</em>
+			</div>
+			<div>
+				<JEditor json={exampleJson} onJsonUpdated={handleJsonUpdated} />
 			</div>
 		</div>
 	);
