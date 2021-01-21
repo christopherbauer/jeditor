@@ -94,38 +94,37 @@ const DisplayEditor = (props: {
 
 const useStyles = createUseStyles({
 	jsonEditorContainer: {
+		backgroundColor: '#1E1E1E',
 		margin: ['1em'],
 		padding: ['1em'],
 		width: '50%',
-		backgroundColor: '#eee',
 		borderRadius: 10,
 		'& div': {
 			margin: [5, 20, 0, 20],
-			border: [1, 'solid', '#aaa'],
+			border: [1, 'solid', '#404040'],
 			borderRadius: 5,
 			padding: [5, 0, 5, 5],
-			backgroundColor: '#ccc',
+			backgroundColor: '#1d1d1d',
 		},
 	},
 	jsonArray: {},
+	jsonEditorKey: {
+		color: '#9CDCFE',
+	},
 	interact: {
 		cursor: 'pointer',
 	},
 	editorNumber: {
 		fontStyle: 'italic',
-		color: 'lightskyblue',
+		color: '#93CEA8',
 	},
 	editorString: {
 		fontStyle: 'italic',
-		color: 'blue',
+		color: '#CE723B',
 	},
-	editorBooleanTrue: {
+	editorBoolean: {
 		fontStyle: 'italic',
-		color: 'green',
-	},
-	editorBooleanFalse: {
-		fontStyle: 'italic',
-		color: 'red',
+		color: '#569CCA',
 	},
 	jsonEditorEditInit: {
 		cursor: 'pointer',
@@ -138,7 +137,7 @@ export const JEditor = ({ json }: Props) => {
 	const classes = useStyles();
 	const [curJson, setCurJson] = useState<any>(json);
 	const [editing, setEditing] = useState(false);
-	const keyFormat = (key: string) => `"${key}"`;
+	const keyFormat = (key: string) => <span className={classes.jsonEditorKey}>{key}</span>;
 
 	const handleDocumentClick = (event: MouseEvent) => {
 		if (jsonEditorRef.current && !jsonEditorRef.current.contains(event.target as Node)) {
@@ -226,11 +225,7 @@ export const JEditor = ({ json }: Props) => {
 								onJsonUpdated={(newJson) => setCurJson(newJson)}
 							>
 								{keyFormat(key)}:{' '}
-								<span
-									className={`${classes.interact} ${
-										jsonValue ? classes.editorBooleanTrue : classes.editorBooleanFalse
-									}`}
-								>
+								<span className={`${classes.interact} ${classes.editorBoolean}`}>
 									{jsonValue.toString()}
 								</span>{' '}
 								{i < keys.length - 1 ? ',' : ''}

@@ -5,8 +5,8 @@ import 'jeditor/dist/index.css';
 
 const App = () => {
 	const handleJsonUpdated = (json: any) => {
-        console.log(json);
-    };
+		console.log(json);
+	};
 	const exampleJson = {
 		Name: 'JSON Editor React Example',
 		ID: 1000000000,
@@ -22,7 +22,14 @@ const App = () => {
 			},
 		],
 	};
-	return <JEditor json={exampleJson} onJsonUpdated={handleJsonUpdated} />;
+	return (
+		<div>
+            <div><h2>JEditor</h2></div>
+			<div>
+				<JEditor json={exampleJson} onJsonUpdated={handleJsonUpdated} />;
+			</div>
+		</div>
+	);
 };
 
 export default App;
